@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Name — Frontend Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #f9f9f7;
+        --surface: #ffffff;
+        --border: #e8e8e4;
+        --text: #1a1a18;
+        --muted: #7a7a72;
+        --accent: #2a5cff;
+        --tag-bg: #eef2ff;
+        --tag-text: #2a5cff;
+        --mono: "DM Mono", monospace;
+        --sans: "Inter", sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--sans);
+        background: var(--bg);
+        color: var(--text);
+        font-size: 15px;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ── Layout ── */
+      .container {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      section {
+        padding: 72px 0;
+      }
+      section + section {
+        border-top: 1px solid var(--border);
+      }
+
+      /* ── Nav ── */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(249, 249, 247, 0.88);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-inner {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .nav-logo {
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--accent);
+        letter-spacing: 0.02em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 28px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        font-size: 13px;
+        color: var(--muted);
+        transition: color 0.15s;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      /* ── Hero ── */
+      #hero {
+        padding-top: 96px;
+        padding-bottom: 80px;
+      }
+
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--accent);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+
+      .hero-name {
+        font-size: clamp(36px, 6vw, 52px);
+        font-weight: 300;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        margin-bottom: 20px;
+      }
+
+      .hero-name strong {
+        font-weight: 500;
+      }
+
+      .hero-tagline {
+        font-size: 17px;
+        color: var(--muted);
+        max-width: 440px;
+        margin-bottom: 36px;
+        line-height: 1.65;
+      }
+
+      .hero-cta {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 22px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .btn-primary {
+        background: var(--text);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: #333;
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+      .btn-outline:hover {
+        border-color: var(--text);
+      }
+
+      /* ── Section labels ── */
+      .section-label {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 36px;
+      }
+
+      /* ── About ── */
+      .about-text {
+        font-size: 16px;
+        color: var(--text);
+        line-height: 1.8;
+        margin-bottom: 16px;
+      }
+
+      /* ── Skills ── */
+      .skill-group {
+        margin-bottom: 28px;
+      }
+
+      .skill-group-title {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--muted);
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .tag {
+        font-family: var(--mono);
+        font-size: 12px;
+        background: var(--tag-bg);
+        color: var(--tag-text);
+        padding: 5px 12px;
+        border-radius: 4px;
+      }
+
+      .tag-neutral {
+        background: var(--surface);
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+
+      /* ── Projects ── */
+      .project-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .project-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 24px;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+      .project-card:hover {
+        border-color: #ccc;
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+      }
+
+      .project-card.coming-soon {
+        opacity: 0.6;
+      }
+      .project-card.coming-soon:hover {
+        border-color: var(--border);
+        box-shadow: none;
+      }
+
+      .project-card.highlight {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        border-color: #2a5cff;
+        color: #fff;
+      }
+      .project-card.highlight:hover {
+        border-color: #4a7aff;
+        box-shadow: 0 4px 24px rgba(42, 92, 255, 0.15);
+      }
+      .project-card.highlight .project-name {
+        color: #fff;
+      }
+      .project-card.highlight .project-desc {
+        color: #a0aec0;
+      }
+      .project-card.highlight .project-link {
+        border-color: #4a7aff;
+        color: #7aa2ff;
+      }
+      .project-card.highlight .project-link:hover {
+        background: rgba(42, 92, 255, 0.2);
+      }
+      .project-card.highlight .tag {
+        background: rgba(42, 92, 255, 0.15);
+        color: #7aa2ff;
+      }
+
+      .badge-client {
+        display: inline-block;
+        font-family: var(--mono);
+        font-size: 10px;
+        background: #2a5cff;
+        color: #fff;
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-left: 10px;
+        vertical-align: middle;
+      }
+
+      .project-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 8px;
+      }
+
+      .project-name {
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      .project-links {
+        display: flex;
+        gap: 12px;
+      }
+
+      .project-link {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--accent);
+        padding: 4px 8px;
+        border: 1px solid #dde6ff;
+        border-radius: 4px;
+        transition: background 0.12s;
+      }
+      .project-link:hover {
+        background: var(--tag-bg);
+      }
+
+      .project-link.disabled {
+        color: var(--muted);
+        border-color: var(--border);
+        pointer-events: none;
+      }
+
+      .project-desc {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 14px;
+        line-height: 1.6;
+      }
+
+      /* ── Contact ── */
+      .contact-intro {
+        font-size: 16px;
+        color: var(--muted);
+        margin-bottom: 32px;
+        max-width: 400px;
+        line-height: 1.7;
+      }
+
+      .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 18px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.15s;
+      }
+      .contact-item:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .contact-icon {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--accent);
+        min-width: 64px;
+        font-weight: 500;
+      }
+
+      /* ── Footer ── */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 28px 0;
+      }
+
+      .footer-inner {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .footer-copy {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .footer-made {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      /* ── Resume ── */
+      .resume-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .resume-download {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--accent);
+        padding: 7px 14px;
+        border: 1px solid #dde6ff;
+        border-radius: 4px;
+        transition: background 0.12s;
+      }
+      .resume-download:hover {
+        background: var(--tag-bg);
+      }
+
+      .resume-block {
+        margin-bottom: 48px;
+      }
+      .resume-block:last-child {
+        margin-bottom: 0;
+      }
+
+      .resume-block-title {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .resume-item {
+        display: grid;
+        grid-template-columns: 130px 1fr;
+        gap: 0 24px;
+        margin-bottom: 28px;
+      }
+      .resume-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .resume-period {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--muted);
+        padding-top: 3px;
+        line-height: 1.5;
+      }
+
+      .resume-content {
+      }
+
+      .resume-role {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text);
+        margin-bottom: 2px;
+      }
+
+      .resume-place {
+        font-size: 13px;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+
+      .resume-detail {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .resume-detail ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .resume-detail ul li::before {
+        content: "– ";
+        color: var(--accent);
+        font-family: var(--mono);
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 480px) {
+        .nav-links {
+          display: none;
+        }
+        .project-header {
+          flex-direction: column;
+          gap: 10px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Nav -->
+    <nav>
+      <div class="nav-inner">
+        <span class="nav-logo">// IBR.DEV</span>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#resume">Resume</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="container">
+      <section id="hero">
+        <p class="eyebrow">Frontend Developer</p>
+        <h1 class="hero-name">
+          Hi, I'm <strong>Ibrahim</strong> —<br />I build clean, fast web
+          interfaces.
+        </h1>
+        <p class="hero-tagline">
+          Profesional dengan ketertarikan kuat di bidang UI dan web development.
+          Suka membuat tampilan yang tidak hanya menarik secara visual, tetapi
+          juga nyaman digunakan.
+        </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">Lihat project saya</a>
+          <a href="#contact" class="btn btn-outline">Hubungi saya</a>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="about">
+        <p class="section-label">About</p>
+        <p class="about-text">
+          Saya Rahmanzah Ibrahim, seorang frontend developer lulusan Universitas
+          Dipa Makassar. Saya tertarik pada intersection antara desain dan
+          teknologi — percaya bahwa kode yang baik dan tampilan yang baik tidak
+          bisa dipisahkan. Dengan dukungan AI dan kemampuan kolaborasi yang
+          kuat, saya senang membangun solusi digital yang efektif, modern, dan
+          berorientasi pada pengguna.
+        </p>
+        <p class="about-text">
+          Sekarang sedang aktif mencari kesempatan untuk berkembang, belajar
+          dari tim yang solid, dan berkontribusi pada produk yang nyata dipakai
+          orang.
+        </p>
+      </section>
+
+      <!-- Skills -->
+      <section id="skills">
+        <p class="section-label">Skills</p>
+
+        <div class="skill-group">
+          <p class="skill-group-title">Languages</p>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">PHP</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <p class="skill-group-title">Frameworks & Tools</p>
+          <div class="tags">
+            <span class="tag">React</span>
+            <span class="tag">Next.js</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Tailwind CSS</span>
+            <span class="tag">Git & GitHub</span>
+            <span class="tag">Figma</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <p class="skill-group-title">Sedang dipelajari</p>
+          <div class="tags">
+            <span class="tag tag-neutral">Framer Motion</span>
+            <span class="tag tag-neutral">Node.js</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects">
+        <p class="section-label">Projects</p>
+        <div class="project-list">
+          <div class="project-card">
+            <div class="project-header">
+              <p class="project-name">VOID Studio — Agency Landing Page</p>
+              <div class="project-links">
+                <!-- Ganti href dengan link GitHub Pages setelah deploy -->
+                <a
+                  href="https://ibrahm244.github.io/void-studio/"
+                  class="project-link"
+                  target="_blank"
+                  rel="noopener"
+                  >Demo →</a
+                >
+                <!-- Ganti href dengan link repo GitHub kamu -->
+                <a
+                  href="https://github.com/Ibrahm244/void-studio"
+                  class="project-link"
+                  target="_blank"
+                  rel="noopener"
+                  >GitHub</a
+                >
+              </div>
+            </div>
+            <p class="project-desc">
+              Landing page dark mode untuk agensi digital fiktif "VOID Studio".
+              Menampilkan section hero, layanan, portofolio karya, alur kerja,
+              dan CTA — dibangun dari nol dengan HTML & CSS murni tanpa
+              framework.
+            </p>
+            <div class="tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-header">
+              <p class="project-name">Sikucing — Platform Adopsi Kucing</p>
+              <div class="project-links">
+                <!-- Ganti href dengan link GitHub Pages setelah deploy -->
+                <a
+                  href="https://ibrahm244.github.io/sikucing/"
+                  class="project-link"
+                  target="_blank"
+                  rel="noopener"
+                  >Demo →</a
+                >
+                <!-- Ganti href dengan link repo GitHub kamu -->
+                <a
+                  href="https://github.com/Ibrahm244/sikucing"
+                  class="project-link"
+                  target="_blank"
+                  rel="noopener"
+                  >GitHub</a
+                >
+              </div>
+            </div>
+            <p class="project-desc">
+              Platform adopsi kucing dengan katalog interaktif, filter
+              pencarian, upload foto kucing, form pengajuan adopsi, dan halaman
+              syarat & ketentuan akad adopsi. Dibangun dengan HTML, CSS, dan
+              JavaScript murni.
+            </p>
+            <div class="tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+          </div>
+
+          <div class="project-card highlight">
+            <div class="project-header">
+              <p class="project-name">PT Multi Karya Kalimantan — Company Profile <span class="badge-client">First Client</span></p>
+              <div class="project-links">
+                <a
+                  href="https://pt-multi-karya-kalimantan.vercel.app/"
+                  class="project-link"
+                  target="_blank"
+                  rel="noopener"
+                  >Demo →</a
+                >
+                <a
+                  href="https://github.com/Ibrahm244/pt-multi-karya-kalimantan"
+                  class="project-link"
+                  target="_blank"
+                  rel="noopener"
+                  >GitHub</a
+                >
+              </div>
+            </div>
+            <p class="project-desc">
+              Company profile website untuk PT Multi Karya Kalimantan, perusahaan
+              kontraktor, fabrikasi, dan supplier. Menggunakan tema blueprint/konstruksi
+              dengan animasi grid, walking worker SVG, dan form kontak via WhatsApp.
+              Deploy di Vercel dengan auto-deploy dari GitHub.
+            </p>
+            <div class="tags">
+              <span class="tag">Next.js</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">Tailwind CSS</span>
+              <span class="tag">Framer Motion</span>
+            </div>
+          </div>
+
+          <div class="project-card coming-soon">
+            <div class="project-header">
+              <p class="project-name">Project Berikutnya</p>
+              <div class="project-links">
+                <span class="project-link disabled">Coming Soon</span>
+              </div>
+            </div>
+            <p class="project-desc">
+              Sedang dalam pengerjaan. Akan diupdate setelah project ini selesai
+              dibangun.
+            </p>
+            <div class="tags">
+              <span class="tag tag-neutral">TBA</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="resume">
+        <div class="resume-header">
+          <p class="section-label" style="margin-bottom: 0">Resume</p>
+          <!-- Ganti href dengan link Google Drive / file PDF CV kamu -->
+          <a
+            href="https://drive.google.com/file/d/10jPHPFhhosbEjBe4eUL8naRzNz4GBgTG/view?usp=sharing"
+            class="resume-download"
+            target="_blank"
+            rel="noopener"
+            >Download CV (PDF) ↓</a
+          >
+        </div>
+
+        <!-- PENGALAMAN KERJA -->
+        <div class="resume-block">
+          <p class="resume-block-title">Pengalaman Kerja</p>
+
+          <div class="resume-item">
+            <span class="resume-period">Ags 2024 –<br />Nov 2024</span>
+            <div class="resume-content">
+              <p class="resume-role">Freelance Administration</p>
+              <p class="resume-place">CV Multi Jasa Barokah</p>
+              <div class="resume-detail">
+                <ul>
+                  <li>Membuat Invoice dan Rekapan pembayaran kepada vendor</li>
+                  <li>Mengelola data BPJS Kesehatan karyawan lewat e-Dabu</li>
+                  <li>
+                    Menginput, mengarsipkan, dan memverifikasi doc seperti data
+                    karyawan, dan laporan proyek.
+                  </li>
+                  <li>
+                    Membantu menyiapkan data penggajian (payroll), meliputi
+                    absensi, lembur, dan potongan kasbon.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="resume-item">
+            <span class="resume-period">Jan 2025 –<br />Des 2025</span>
+            <div class="resume-content">
+              <p class="resume-role">Warehouseman</p>
+              <p class="resume-place">PT Karsa Mulia Sejahtera</p>
+              <div class="resume-detail">
+                <ul>
+                  <li>
+                    Bertanggung jawab pada proses penerimaan barang (incoming),
+                    khususnya spare part.
+                  </li>
+                  <li>
+                    Melakukan pengecekan fisik barang dan memastikan kesesuaian
+                    dengan dokumen (PO, DO, dll).
+                  </li>
+                  <li>
+                    Melakukan proses binning, yaitu penempatan dan pengelompokan
+                    spare part ke lokasi penyimpanan yang sesuai di gudang.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tambahkan pengalaman lain di sini dengan format yang sama -->
+        </div>
+
+        <!-- PENDIDIKAN -->
+        <div class="resume-block">
+          <p class="resume-block-title">Pendidikan</p>
+
+          <div class="resume-item">
+            <span class="resume-period">2019 – 2023</span>
+            <div class="resume-content">
+              <p class="resume-role">S1 Rekayasa Perangkat Lunak</p>
+              <p class="resume-place">Universitas Dipa Makassar</p>
+              <div class="resume-detail">
+                IPK: 3.48 · Skripsi: Penerapan Konsep Service-Oriented
+                Architecture (SOA) PADA Sistem Informasi Desa Pucak, Maros,
+                Sulawesi-Selatan.
+              </div>
+            </div>
+          </div>
+
+          <!-- Tambahkan pendidikan lain (SMA, bootcamp, kursus) jika relevan -->
+        </div>
+
+        <!-- SERTIFIKASI & PELATIHAN -->
+        <div class="resume-block">
+          <p class="resume-block-title">Sertifikasi & Pelatihan</p>
+
+          <div class="resume-item">
+            <span class="resume-period">2022</span>
+            <div class="resume-content">
+              <p class="resume-role">Belajar Dasar Pemrograman Web</p>
+              <p class="resume-place">Dicoding</p>
+            </div>
+          </div>
+
+          <div class="resume-item">
+            <span class="resume-period">2022</span>
+            <div class="resume-content">
+              <p class="resume-role">Belajar Dasar Pemrograman JavaScript</p>
+              <p class="resume-place">Dicoding</p>
+            </div>
+          </div>
+
+          <div class="resume-item">
+            <span class="resume-period">2024</span>
+            <div class="resume-content">
+              <p class="resume-role">K3 Migas dan Pertambangan</p>
+              <p class="resume-place">PT Taalenta Digital Inteleksia</p>
+            </div>
+          </div>
+
+          <!-- Tambahkan sertifikasi lainnya di sini -->
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact">
+        <p class="section-label">Contact</p>
+        <p class="contact-intro">
+          Terbuka untuk peluang kerja, freelance, atau sekadar ngobrol soal
+          teknologi dan desain.
+        </p>
+        <div class="contact-links">
+          <a
+            href="https://mail.google.com/mail/?view=cm&to=mpranataa@gmail.com"
+            class="contact-item"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="contact-icon">Email</span>
+            mpranataa@gmail.com
+          </a>
+          <a
+            href="https://www.linkedin.com/in/rahmanzah-ibrahim/"
+            class="contact-item"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="contact-icon">LinkedIn</span>
+            linkedin.com/in/rahmanzah-ibrahim
+          </a>
+          <a
+            href="https://github.com/Ibrahm244"
+            class="contact-item"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="contact-icon">GitHub</span>
+            github.com/Ibrahm244
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-inner">
+        <p class="footer-copy">© 2026 IBR.DEV</p>
+        <p class="footer-made">built with HTML & CSS</p>
+      </div>
+    </footer>
+  </body>
+</html>
