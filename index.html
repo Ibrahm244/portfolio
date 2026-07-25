@@ -518,6 +518,7 @@
         opacity: 0;
         transform: translateY(20px);
         animation: heroFadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        will-change: opacity, transform;
       }
       .hero-enter:nth-child(1) { animation-delay: 0.1s; }
       .hero-enter:nth-child(2) { animation-delay: 0.25s; }
@@ -1129,9 +1130,14 @@
             }
           });
         },
-        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+        { threshold: 0.05, rootMargin: "0px 0px -10px 0px" }
       );
       revealElements.forEach((el) => revealObserver.observe(el));
+
+      // Fallback: reveal all after 3s if observer doesn't trigger (mobile fix)
+      setTimeout(() => {
+        revealElements.forEach((el) => el.classList.add("visible"));
+      }, 3000);
 
       // ── Active Nav Indicator ──
       const sections = document.querySelectorAll("section[id]");
@@ -1180,6 +1186,14 @@
           }
         });
       });
+
+      // ── Hero fallback (ensure visibility on mobile) ──
+      setTimeout(() => {
+        document.querySelectorAll(".hero-enter").forEach((el) => {
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+        });
+      }, 2000);
     </script>
   </body>
 </html>
